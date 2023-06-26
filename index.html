@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfect Pizza</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script defer src="main.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body style="background-color: #eae2b7;">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+<div class="container" >
+
+    <br><br>
+    <div style="text-align: center;"  >
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
+            <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
+          </svg>
+        <h1>Perfect Pizzeria</h1>
+        <hr style="border: none; height: 5px; background-color: #000; background-image: linear-gradient(to right, green, green 33%, white 33%, white 66%, #a50104 66%, #a50104);">
+    </div>
+
+    <div x-data="{total:0.00, smlPizza: 0.00, mediPizza: 0.00, lrgPizza: 0.00, smlQuant: 0, medQuant: 0, lrgQuant: 0, cartQuant: 0, money: 0.00, show: false, errorMsg: '', approvedMsg: '', clearMsg: ''}"
+         x-init="setInterval(function() {errorMsg='';}, 5000),
+                 setInterval(function() {clearMsg='';}, 10000)
+                 ">
+            <h2 style="text-align: center;">Shopping Cart</h2>
+
+                <div style="text-align: right;" class="sticky-top">
+                    <button type="button" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                        </svg> <span class="badge text-bg-secondary" x-text="cartQuant"></span>
+                    </button>
+                </div>
+                <br>
+                 
+        <!--------------------PURCHASE SECTION--------------------->
+        <div class="container text-center">
+            <div style="background-color: #80ed99;">
+                <span x-text="smlQuant"></span><span>X Small Pizza(s)</span>
+                    <button @click="(smlQuant++), (smlPizza +=60), (total+=60), (cartQuant++)" type="button" class="btn btn-light">+</button>
+                    <button @click="if(smlPizza > 0) (smlQuant--), (smlPizza-=60), (total-=60), (cartQuant--)" class="btn btn-light">-</button>
+                <span>Total R</span><span x-text="smlPizza"></span>
+            </div>
+            <br>
+            <div style="background-color: #80ed99;">
+                <span x-text="medQuant"></span><span>X Medi Pizza(s)</span>
+                    <button @click="(medQuant++), (mediPizza+=90), (total+=90), (cartQuant++)" class="btn btn-light">+</button>
+                    <button @click="if(mediPizza > 0.00) (medQuant--), (mediPizza-=90), (total-=90), (cartQuant--)" class="btn btn-light">-</button>
+                <span>Total R</span><span x-text="mediPizza"></span>
+            </div>
+            <br>
+            <div style="background-color: #80ed99;">
+                <span x-text="lrgQuant"></span><span>X Large Pizza(s)</span>
+                    <button @click="(lrgQuant++), (lrgPizza+=110), (total+=110), (cartQuant++) " class="btn btn-light">+</button>
+                    <button @click="if(lrgPizza > 0.00) (lrgQuant--), (lrgPizza-=110), (total-=110), (cartQuant--)" class="btn btn-light">-</button>
+                <span>Total R</span><span x-text="lrgPizza"></span>
+            </div>
+            <br>
+            <div> 
+                <strong>
+                    <span>Total Cost R:</span> <span x-text="total"></span>
+                </strong>
+            </div>
+            <br>
+        <!--------------------Alert Messages Below--------------------->
+                    <div x-show="approvedMsg != ''" class="alert alert-success" style="text-align: center;">
+                        <p x-text="approvedMsg"></p>
+                    </div>
+    
+                    <div x-show="errorMsg != ''" class="alert alert-danger " style="text-align: center;">
+                        <p x-text="errorMsg"></p>
+                    </div>
+    
+                    <div x-show="clearMsg != ''" class="alert alert-info" style="text-align: center;">
+                        <p x-text="clearMsg"></p>
+                    </div>
+        <!--------------------Alert Messages Above--------------------->
+            <div x-model="money">
+                <span>Payment amount</span>
+                 <input x-model="money" type="number" placeholder="0.00">
+                <button type="button" class="btn btn-info" @click="if (money >= total && total > 0) { show = !show; approvedMsg = 'You can proceed to checkout'; errorMsg = '' } else {errorMsg = 'You have insufficient funds'; }">Pay</button>
+                <div x-show="show">
+                    <button type="button" class="btn btn-success" @click="show = !show; total = 0.00; smlPizza = 0.00; mediPizza = 0.00; lrgPizza = 0.00; smlQuant = 0; medQuant = 0; lrgQuant = 0; cartQuant = 0; money = 0.00; errorMsg = ''; approvedMsg = '' ; clearMsg = 'Purchase successful! Enjoy your meal.'">Checkout</button>
+                </div>
+            </div>
+        </div>
+        <br>
+        
+        <!-----------------Pizza Section with descriptions------------------->
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col p-3" style="border: solid #46494c; border-radius: 2em ; background-color: #cff27e; margin: 4px;">
+                    <h2 style="text-align: left;">Small Pizza</h2>
+                        <br>
+                        <div>
+                            <img src="public\small_pizza.jpg" width="250" alt="Avocado Pizza">
+                        </div>
+                        <br>
+                            <h3 style="text-align: left;">R60.00</h3>
+                                <div style="text-align: justify;">
+                                    Enjoy this Avocado Pizza with pesto sauce, fresh veggies, creamy avocado, and flaky puff pastry crust. An earthy burst of satisfying flavor.
+                                </div>
+                                <br>
+                                    <div>
+                                        <button @click="(smlQuant++), (smlPizza +=60), (total+=60), (cartQuant++)" type="button" class="btn btn-light">Buy</button>
+                                    </div>
+                                
+                </div>
+                
+                <div class="col p-3" style="border: solid #46494c; border-radius: 2em ; background-color: #fff05a; margin: 4px;">
+                    <h2 style="text-align: left;">Medium Pizza</h2>
+                        <br>
+                        <div>
+                            <img src="public\medium_pizza.jpg" width="250" alt="Cheesy pizza with mushrooms">
+                        </div>
+                        <br>
+                            <h3 style="text-align: left;">R90.00 </h3>
+                                <div style="text-align: justify;">
+                                    Yearning for a cheesy delight? This cheesy pizza with mushrooms is a decadent treat that's sure to satisfy your cravings and leave you wanting more.
+                                </div>
+                                <br>
+                                    <div>
+                                        <button @click="(medQuant++), (mediPizza+=90), (total+=90), (cartQuant++)" type="button" class="btn btn-light">Buy</button>
+                                    </div>
+                </div>
+                <div class="col p-3" style="border: solid #46494c; border-radius: 2em ; background-color: #ff9e00; margin: 4px;">
+                    <h2 style="text-align: left;">Large Pizza</h2>
+                        <br>
+                        <div>
+                            <img src="public\large_pizza.jpg" width="250" alt="Spicy meaty pizza">
+                        </div>
+                        <br>
+                            <h3 style="text-align: left;">R110.00</h3>
+                                <div style="text-align: justify;">
+                                    A pizza topped with savoury, juicy beef seasoned with the perfect blend of herbs and spices. Enjoy the spicy jalapeno, veggies and beef come together in perfect harmony.
+                                </div>
+                                <br>
+                                    <div>
+                                        <button @click="(lrgQuant++), (lrgPizza+=110), (total+=110), (cartQuant++)" type="button" class="btn btn-light">Buy</button>
+                                    </div>
+                </div>
+            </div>
+        </div>
+        <!--DO NOT DELETE the below div, it is the closing tag which contains the component data -->
+    </div>
+    <br>
+        <div style="border: solid #46494c; border-radius: 2em ; padding: 2em; background-color: #b8f2e6;" >
+
+            <h2>Contact details</h2>
+            Contact us at: 011 553 7979
+            <div>
+                Website: info@perfectpizzeria.co.za
+            </div>
+            <div>
+                Address: 25 Linkon Street, Nevada
+            </div>
+
+        </div>
+    <br>
+</div>
+</body>
+<footer class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+    <p>
+        © 2023 Lawrence & Lumen Holdings. All rights reserved.
+    </p>
+
+</footer>
+
+</html>
