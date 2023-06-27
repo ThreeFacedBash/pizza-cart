@@ -84,7 +84,7 @@
                         <p x-text="clearMsg"></p>
                     </div>
         <!--------------------Alert Messages Above--------------------->
-            <div x-model="money">
+            <div x-model="money" x-show="total > 0">
                 <span>Payment amount</span>
                  <input x-model="money" type="number" placeholder="0.00">
                 <button type="button" class="btn btn-info" @click="if (money >= total && total > 0) { show = !show; approvedMsg = 'You can proceed to checkout'; errorMsg = '' } else {errorMsg = 'You have insufficient funds'; }">Pay</button>
